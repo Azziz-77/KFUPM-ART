@@ -7,7 +7,7 @@ An automated End-end Red team platform, that covers Recon - Scanning - Exploitat
 
 An integrated penetration testing framework that automates and streamlines the vulnerability assessment process through MITRE ATT&CK framework integration and AI-guided attack planning.
 
-![Uploading IG_iviQcbTU9Qq51.png…]()
+![IG_iviQcbTU9Qq51](https://github.com/user-attachments/assets/1b79457d-4df0-49cc-a54d-1b9cf08230d2)
 
 
 ## Overview
