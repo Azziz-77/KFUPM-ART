@@ -100,7 +100,7 @@ Copy the key to your ART Platform's config.yml file
 ```
 
 
-# Setting up OpenAI API
+## Setting up OpenAI API
 To use the AI guidance features, you need an OpenAI API key:
 
 * Create an account at OpenAI
@@ -108,11 +108,11 @@ To use the AI guidance features, you need an OpenAI API key:
 * Create a new API key
 * Copy the key to your ART Platform's GUI in the appropriate section
 
-# GUI overview
+## GUI overview
 ![image](https://github.com/user-attachments/assets/9e68b24c-b5d7-4772-a3f0-d1dcdffe84df)
 
 
-# GUI configuration
+## GUI configuration
 Add your OpenAI API key in the appropriate section in the left
 Configure Caldera API settings
 Set OpenVAS connection details if you're using enhanced scanning capabilities
@@ -120,69 +120,49 @@ Customize workspace and reporting directories as needed
 
 Example configuration:
 api_keys:
-  # Your OpenAI API key (required for AI guidance)
+## Your OpenAI API key (required for AI guidance)
   openai: "sk-your-openai-api-key-here"
 
-# Caldera Framework Integration
+## Caldera Framework Integration
 caldera:
-  # URL to your Caldera server
+  #### URL to your Caldera server
   url: "http://localhost:8888"
-  # API key for Caldera authentication
+  #### API key for Caldera authentication
   api_key: "ADMIN123"
-  # Default red team group
+  #### Default red team group
   group: "red"
-  # Connection timeout in seconds
+  #### Connection timeout in seconds
   timeout: 30
 
-# OpenVAS Integration (optional)
+## OpenVAS Integration (optional)
 openvas:
-  # Set to true to enable OpenVAS integration
+  #### Set to true to enable OpenVAS integration
   enabled: false
-  # OpenVAS/GVM connection settings
+  #### OpenVAS/GVM connection settings
   host: "localhost"
   port: 9390
   username: "admin"
   password: "admin"
 
-# Workspace Settings
+## Workspace Settings
 workspace:
-  # Base directory for all data and results
+  #### Base directory for all data and results
   base_directory: "./workspace"
-  # Directory for generated reports
+  #### Directory for generated reports
   reports_directory: "./reports"
-  # Default report format (html, pdf, md)
+  #### Default report format (html, pdf, md)
   default_report_format: "html"
-Usage
-GUI Mode
-bash# Run the GUI application
-python main.py
+
+## Usage
 The GUI provides an intuitive interface for configuring penetration tests, monitoring progress, and generating reports.
-CLI Mode
-bash# Run a full penetration test
-python cli.py --target 192.168.1.0/24 --attack-type all
+You are required to install Pycharm and run it as root (sudo) in order to have a smooth experience
 
-# System-focused penetration test
-python cli.py --target 192.168.1.100 --target-type system --attack-type system
 
-# Network service focused test
-
-python cli.py --target 192.168.1.0/24 --attack-type network --output-dir ./custom_reports
-Results and Performance
-Our evaluation conducted across 5 ports within the Metasploitable 3:
-
-37% reduction in time-to-exploit compared to traditional manual approaches
-42% increase in successful exploitation of high-risk vulnerabilities
-93% vulnerability detection rate compared to 89% with standard tools
-56% reduction in report generation time while maintaining professional standards
-
-# License
-This project is licensed under the MIT License - see the LICENSE file for details.
-Ethical Considerations
+# Disclaimer
 This tool is designed for legitimate security testing with proper authorization. Users are responsible for ensuring they have appropriate permissions before conducting any security tests. The system incorporates explicit authorization checks and maintains detailed audit logs to support accountability and responsible use.
 
 # Acknowledgments
-
-MITRE ATT&CK® for providing the knowledge base that enables structured security testing
-OpenAI for the GPT models that power the AI guidance component
-The Caldera framework team for their extensible adversary emulation platform
-The Python community for the excellent libraries and tools that make this project possible
+- MITRE ATT&CK® for providing the knowledge base that enables structured security testing
+- OpenAI for the GPT models that power the AI guidance component
+- The Caldera framework team for their extensible adversary emulation platform
+- The Python community for the excellent libraries and tools that make this project possible
