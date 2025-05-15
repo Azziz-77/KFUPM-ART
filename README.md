@@ -1,69 +1,69 @@
 # KFUPM-ART: AI-Guided Penetration Testing Tool
-An automated End-end Red team platform, that covers Recon - Scanning - Exploitation - Reporting. the project utilize AI GPT for attack strategy and TTP recommendation, and will use caldera for the exploitation phase.
+An automated penetration testing framework that uses AI guidance from GPT-4 to streamline security assessments.
 
 
+<img src="https://github.com/user-attachments/assets/1b79457d-4df0-49cc-a54d-1b9cf08230d2" alt="Alt Text" width="600" height="600">
 
-# ART: Automated Red Team Platform with AI-Driven MITRE ATT&CK-Guidance
-
-An integrated penetration testing framework that automates and streamlines the vulnerability assessment process through MITRE ATT&CK framework integration and AI-guided attack planning.
-
-![IG_iviQcbTU9Qq51](https://github.com/user-attachments/assets/1b79457d-4df0-49cc-a54d-1b9cf08230d2)
 
 
 ## Overview
 
-This platform provides a unified workflow from reconnaissance through exploitation and reporting with intelligent decision-making capabilities using OpenAI GPT-4 model. The system combines open-source reconnaissance and scanning utilities with the Caldera exploitation framework, guided by large language models to improve attack vector selection.
+This platform provides a unified workflow from reconnaissance through exploitation and reporting with intelligent decision-making capabilities using OpenAI GPT-4 model. The system combines open-source reconnaissance and scanning utilities with the Metasploit and Caldera frameworks, guided by large language models to improve attack vector selection.
 
 Traditional penetration testing approaches require significant manual effort between phases and specialized expertise across multiple domains of offensive security. ART addresses these challenges by integrating the entire penetration testing lifecycle into a cohesive workflow while leveraging AI to enhance decision-making and prioritization.
 
+
 ## Key Features
 
-- **End-to-end integration**: Seamless workflow from reconnaissance through exploitation to reporting
-- **MITRE ATT&CK integration**: Structured mapping of vulnerabilities to attack techniques and tactics
 - **AI-guided decision support**: Large language model assistance for technique selection and report generation
 - **Modular architecture**: Extensible components for adding new scanning and exploitation capabilities
 - **Comprehensive reporting**: Automated generation of executive summaries, technical reports, and visualizations
-- **Intuitive GUI**: Real-time tracking and visualization of penetration testing progress
+- **Intuitive GUI**: Real-time tracking of penetration testing progress
 
 ## System Architecture
 
-The framework consists of six core modules designed to work in concert while maintaining separation of concerns:
+The framework consists of several core modules designed to work in concert:
+<img src="https://github.com/user-attachments/assets/a27a4ff9-2bd2-49aa-8c8f-f9ce4cac057b" alt="Alt Text" width="600" height="600">
 
-1. **Information Gathering**: Performs target discovery and service enumeration using Nmap and other reconnaissance tools
-2. **Vulnerability Scanning**: Identifies potential security weaknesses through basic scanning, enhanced CVE detection, and optional OpenVAS integration
-3. **Attack Planning**: Maps vulnerabilities to MITRE ATT&CK techniques through direct CVE mappings, service-based heuristics, and AI-enhanced analysis
-4. **Exploitation**: Executes controlled exploits via the Caldera framework with intelligent attack path selection
-5. **AI Guidance**: Provides decision support using large language models for attack planning and report generation
-6. **Reporting**: Transforms technical findings into professional security reports with executive summaries and actionable recommendations
+
+1. **AI Controller**: The central module that orchestrates the entire workflow. It interfaces with the OpenAI API to generate prompts and process responses, maintains conversation history, and coordinates between different tool interfaces.
+
+2. **Scanner Interface**: Handles host discovery and service enumeration through tools like Nmap. It processes scan results and formats them for use by other components of the system.
+
+3. **Metasploit Interface**: Provides an abstraction layer for interacting with the Metasploit Framework. It handles session management, exploit execution, and exploitation activities through both direct command execution and RPC-based interaction.
+
+4. **CALDERA Interface**: A planned feature for future implementation to support post-exploitation activities. Currently in development.
+
+5. **GUI**: A PyQt6-based graphical user interface that provides an accessible way to configure, monitor, and control the penetration testing process.
 
 ## Prerequisites
 
 - Python 3.10 or higher
-- Nmap 7.80 or higher
-- Kali Linux for best compatibility (Ubuntu and other Linux distributions also supported)
+- Kali Linux for best compatibility
 - OpenAI API key
-- Caldera server (optional for exploitation)
-- OpenVAS (optional for enhanced vulnerability scanning)
+- Caldera server (optional for post exploitation)
 
 ## Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ART-Platform.git
-cd ART-Platform
+git clone https://github.com/Azziz-77/KFUPM-ART.git
+cd KFUPM-ART
 
-# Create a virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# Run the setup script (requires root privileges)
+sudo ./setup.sh
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Set up configuration
-cp config.example.yml config.yml
-# Edit config.yml with your API keys and settings
+```
 
+## Metasploit RPC Configuration
+The framework interacts with Metasploit through its RPC interface. To set it up:
 
+```bash
+# Start the Metasploit RPC server
+msfrpcd -P password -S -a 127.0.0.1 -p 55553
 ```
 
 ## Setting up Caldera
@@ -74,14 +74,26 @@ Caldera is an optional component for the exploitation phase. To set up Caldera:
 
 ```bash 
 # Clone the Caldera repository:
-bashgit clone https://github.com/mitre/caldera.git
+git clone https://github.com/mitre/caldera.git
 cd caldera
 
 # Install Caldera dependencies:
-bashpip install -r requirements.txt
+pip install -r requirements.txt
+
+# Navigate to Caldera 
+cd caldera 
+
+# Create a virtual environment with an old version of python that supports Caldera
+python3.12 -m venv py312-venv
+
+# Activate it
+source py312-venv/bin/activate
 
 # Start the Caldera server:
-bashpython server.py --insecure
+python3 server.py --insecure --build
+
+
+
 
 # Access the Caldera web interface at http://localhost:8888 with default credentials:
 
@@ -89,12 +101,6 @@ Username: admin
 Password: admin
 
 
-# Create a new API key in the Caldera web interface:
-
-Navigate to the settings page
-Click on "API Keys"
-Create a new API key
-Copy the key to your ART Platform's config.yml file
 
 
 ```
@@ -108,55 +114,15 @@ To use the AI guidance features, you need an OpenAI API key:
 * Create a new API key
 * Copy the key to your ART Platform's GUI in the appropriate section
 
-## GUI overview
-![image](https://github.com/user-attachments/assets/9e68b24c-b5d7-4772-a3f0-d1dcdffe84df)
-
-
-## GUI configuration
-Add your OpenAI API key in the appropriate section in the left
-Configure Caldera API settings
-Set OpenVAS connection details if you're using enhanced scanning capabilities
-Customize workspace and reporting directories as needed
-
-Example configuration:
-api_keys:
-## Your OpenAI API key (required for AI guidance)
-  openai: "sk-your-openai-api-key-here"
-
-## Caldera Framework Integration
-caldera:
-  #### URL to your Caldera server
-  url: "http://localhost:8888"
-  #### API key for Caldera authentication
-  api_key: "ADMIN123"
-  #### Default red team group
-  group: "red"
-  #### Connection timeout in seconds
-  timeout: 30
-
-## OpenVAS Integration (optional)
-openvas:
-  #### Set to true to enable OpenVAS integration
-  enabled: false
-  #### OpenVAS/GVM connection settings
-  host: "localhost"
-  port: 9390
-  username: "admin"
-  password: "admin"
 
 ## Workspace Settings
 workspace:
   #### Base directory for all data and results
   base_directory: "./workspace"
-  #### Directory for generated reports
-  reports_directory: "./reports"
-  #### Default report format (html, pdf, md)
-  default_report_format: "html"
 
 ## Usage
 The GUI provides an intuitive interface for configuring penetration tests, monitoring progress, and generating reports.
 You are required to install Pycharm and run it as root (sudo) in order to have a smooth experience
-
 
 # Disclaimer
 This tool is designed for legitimate security testing with proper authorization. Users are responsible for ensuring they have appropriate permissions before conducting any security tests. The system incorporates explicit authorization checks and maintains detailed audit logs to support accountability and responsible use.
@@ -166,3 +132,4 @@ This tool is designed for legitimate security testing with proper authorization.
 - OpenAI for the GPT models that power the AI guidance component
 - The Caldera framework team for their extensible adversary emulation platform
 - The Python community for the excellent libraries and tools that make this project possible
+- The Metasploit Framework team for their comprehensive exploitation toolkit
